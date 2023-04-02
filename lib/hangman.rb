@@ -62,6 +62,7 @@ class Hangman
     @letters = []
     @misses = 0
     play_round until finished?
+    game_over
   end
 
   class << self
@@ -89,21 +90,32 @@ class Hangman
       puts 'What letter would you like to try?'
     end
 
-    def read_letter
-      letter = $stdin.gets[0].downcase
-      letter = $stdin.gets[0].downcase until valid_letter?(letter)
-      @letters.push(letter)
-      letter
+    def game_over
+      if @misses == 7
+        puts HANGMANPICS.last
+        print 'GAME OVER! You are dead! '
+      elsif @word == @guessed
+        puts @word.join(' ')
+        print 'Coungratulations! You won!!! '
+      end
+      puts "The word was #{@word.join('')}."
     end
 
     def finished?
-      @misses == 7
+      @misses == 7 || @word == @guessed
     end
 
     def play_round
       display
       letter = read_letter
       check_letter(letter)
+    end
+
+    def read_letter
+      letter = $stdin.gets[0].downcase
+      letter = $stdin.gets[0].downcase until valid_letter?(letter)
+      @letters.push(letter)
+      letter
     end
 
     def valid_letter?(letter)
