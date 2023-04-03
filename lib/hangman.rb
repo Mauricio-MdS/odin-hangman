@@ -65,7 +65,7 @@ class Hangman
     private
 
     def check_letter(attempt)
-      return save_and_quit if attempt == ''
+      return @state.save_and_quit if attempt == ''
 
       miss = true
       @state.word.each_with_index do |letter, index|
@@ -114,11 +114,6 @@ class Hangman
       letter = $stdin.gets.chomp[0].to_s.downcase until valid_letter?(letter)
       @state.letters.push(letter) unless letter == ''
       letter
-    end
-
-    def save_and_quit
-      @state.quit_flag = true
-      puts 'Saving state'
     end
 
     def valid_letter?(letter)

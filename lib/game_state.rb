@@ -13,4 +13,10 @@ class GameState
     self.misses = misses
     self.quit_flag = false
   end
+
+  def save_and_quit
+    self.quit_flag = true
+    puts 'Saving state'
+    File.open('save.txt', 'w') { |file| file.print "#{guessed}\n#{letters}\n#{misses}\n#{word}" }
+  end
 end
