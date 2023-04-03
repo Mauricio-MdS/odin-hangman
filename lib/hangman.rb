@@ -131,7 +131,7 @@ class Hangman
     end
 
     def valid_letter?(letter)
-      valid = (letter.match?(/[a-z]/) && !@state.letters.include?(letter)) || ''
+      valid = (letter.match?(/[a-z]/) && !@state.letters.include?(letter)) || letter == ''
       puts 'Invalid input' unless valid
       valid
     end
