@@ -16,7 +16,7 @@ class GameState
   end
 
   def load_state
-    saved = JSON.parse(File.open('save.txt', 'r', &:readlines).first)
+    saved = JSON.parse(File.open('save.txt', 'r', &:readline))
     self.word = saved['word']
     self.guessed = saved['guessed']
     self.letters = saved['letters']
@@ -27,7 +27,7 @@ class GameState
   def new_state
     clean_state
     self.word = Dictionary.provide_word.split('')
-    self.guessed = Array.new(@word.length)
+    self.guessed = Array.new(word.length)
     self.letters = []
     self.misses = 0
   end
@@ -36,7 +36,7 @@ class GameState
     self.quit_flag = true
     puts 'Saving state'
     File.open('save.txt', 'w') do |file|
-      file.puts JSON.generate({ guessed: guessed, letters: letters, misses: misses, word: word })
+      file.puts JSON.generate(guessed: guessed, letters: letters, misses: misses, word: word)
     end
   end
 
