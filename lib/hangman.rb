@@ -56,7 +56,7 @@ class Hangman
   ========='''].freeze
 
   def self.start
-    @state = GameState.new
+    check_saved
     play_round until finished?
     game_over unless @state.quit_flag
   end
@@ -75,6 +75,19 @@ class Hangman
         end
       end
       @state.misses += 1 if miss
+    end
+
+    def check_saved
+      @state = GameState.new
+      return @state.new_state unless @state.saved_state?
+
+      puts 'Saved state found. Input "load" to load game, or "new" for new game.'
+      option = gets.chomp.to_s.downcase
+      until %w[load new].include?(option)
+        puts 'Invalid option'
+        option = gets.chomp.to_s.downcase
+      end
+      option == 'load' ? @state.load_state : @state.new_state
     end
 
     def display
