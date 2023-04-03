@@ -14,6 +14,10 @@ class GameState
     self.quit_flag = false
   end
 
+  def clean_state
+    File.delete('save.txt') if File.exist?('save.txt')
+  end
+
   def save_and_quit
     self.quit_flag = true
     puts 'Saving state'

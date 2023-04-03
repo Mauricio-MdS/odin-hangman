@@ -97,6 +97,7 @@ class Hangman
         print 'Coungratulations! You won!!! '
       end
       puts "The word was #{@state.word.join('')}."
+      @state.clean_state
     end
 
     def finished?
