@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Provides valid word from google dictionary
+# Provides valid word from the google dictionary
 class Dictionary
   @words = File.open('google-10000-english-no-swears.txt', 'r', &:readlines)
 
@@ -10,11 +10,7 @@ class Dictionary
     word
   end
 
-  class << self
-    private
-
-    def valid_word?(word)
-      word.length.between?(5, 12)
-    end
+  private_class_method def self.valid_word?(word)
+    word.length.between?(5, 12)
   end
 end
